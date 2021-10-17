@@ -3,68 +3,51 @@ class Gambler{
 	int tempEverydayStake=100;
 	int everyGameBet=1;
 	public void winLosse(){
+		int afterBet=0;
 		Random r1=new Random();
-		int winCal=everyGameBet;
-		int looseCal=everyGameBet;
-		int day=1;
-		int dayEarn=0;
-		int totalStake=0;
-		int everyDayStake=0;
-		int totalEarning=0;
-		for (int i=0; i<20; i++){
-				
-				tempEverydayStake=dayEarn+100;
-				totalStake +=tempEverydayStake;
-				
-				System.out.println("++++++++++++++");
-				System.out.println("DAY "+day+" Stake-->"+tempEverydayStake);
-				//System.out.println("staketotal---------------"+totalStake);
-				
-				int fPer=tempEverydayStake/2;
-				//System.out.println("percentage"+fPer);
-               			int winPer=fPer+tempEverydayStake;
-				 //System.out.println("win percentage"+winPer);
-        	        	int loosePer=tempEverydayStake-fPer;
-				 //System.out.println("loss percentage"+loosePer);
-	
-				while(tempEverydayStake>loosePer && tempEverydayStake<winPer){
-						int check=r1.nextInt(2);
-				
-						if(check==0){
-							//System.out.println("WIN");
-							tempEverydayStake=tempEverydayStake+winCal;
-							//System.out.println("changed amount after a win"+tempEverydayStake);
-						}	
-						else{
-							//System.out.println("LOSSE");
-				
-							tempEverydayStake=tempEverydayStake-looseCal;
-							//System.out.println("changed amount after a loose"+tempEverydayStake);
 
-						}	
-						//System.out.println("earning"+tempEverydayStake);
+		for (int i=1; i<=20; i++)
+		{	
+			tempEverydayStake=afterBet+100;
+			int stakeCheck=tempEverydayStake;
+			System.out.println("bet amount for day "+i+" is:"+tempEverydayStake);
+
+			int fPer=tempEverydayStake/2;
+        	        int winPer=tempEverydayStake+fPer;
+               		int loosePer=tempEverydayStake-fPer;
+
+			while(tempEverydayStake>loosePer && tempEverydayStake<winPer)
+			{
+				int winLoose=r1.nextInt(2);
+				if(winLoose==1)
+				{
+					//System.out.println("win");
+					afterBet=tempEverydayStake+everyGameBet;
 				}
-				//System.out.println("earning"+tempEverydayStake);
-				System.out.println("DAY"+day+" EARNING-->"+tempEverydayStake);
-				dayEarn=tempEverydayStake;
-				day++;
-				totalEarning +=tempEverydayStake;
-
+				else
+				{
+					//System.out.println("loose");
+					afterBet=tempEverydayStake-everyGameBet;
+				}
+				tempEverydayStake=afterBet;
+				//System.out.println("after play="+afterBet);
 			}
-		 System.out.println("total stake::"+totalStake);
-		 System.out.println("total earning::"+totalEarning);
-		 if (totalStake>totalEarning){
-			System.out.println("LOOSE");
-			int amtLoose=totalStake-totalEarning;
-			System.out.println("total amt lost="+amtLoose);
-		 }
-		 else{
-			 System.out.println("PROFIT");
-		 	int amtWon=totalEarning-totalStake;
-			System.out.println("total amt won="+amtWon);
+			System.out.println("day "+i+" after the bet amount:"+tempEverydayStake);
+
+			if(stakeCheck<afterBet)
+			{
+				int profit=afterBet-stakeCheck;
+				System.out.println("day "+i+" in profit:"+profit);
+			}
+			else
+			{
+				int loose=stakeCheck-afterBet;
+				System.out.println("day "+i+" in loose:"+loose);
+			}
+			
 		}
 
-		}
+	}
 	
 	public static void main(String[] args){
 		Gambler g1=new Gambler();
